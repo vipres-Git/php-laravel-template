@@ -2,46 +2,45 @@
 
 
 namespace App\Http\Controllers;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
 class DatabaseOperationController extends Controller
 {
     public function doAdd() {
-        echo 'add';
-
-        $ret = DB::insert('insert into user (username, sex) values(?,?)',['Bob', 1]);
-        var_dump($ret);
-        if($ret) {
-            echo '插入数据成功';
-        }else {
-            echo '插入数据失败';
-        }
+        return DB::table('user')->insert([
+            'username'=>'兰陵王',
+            'sex'=>1
+        ]);
     }
 
     public function doDelete() {
-        echo 'delete';
-
-        $ret = DB::delete('delete from user where id = 5');
-        var_dump($ret);
+      return DB::table('user')->where('id', 18)->delete();
     }
 
     public function doUpdate() {
-        echo 'update';
-
-        $ret = DB::update('update user set username = ? where id = ?', ['李白', 1]);
-        var_dump($ret);
+        return DB::table('user')->where('id',1)->update([
+            'username'=>'李白'
+        ]);
     }
 
     public function doSelect() {
-        echo 'select';
-
-        $all = DB::select('select * from user');
-        dd($all);
-
-        // 使用查询构造器
-//        $allByConstructor = DB::table('user')->get();
-//        dd($allByConstructor);
+        return DB::table('user')->get();
     }
 
+    // 调用模型示例
+    public function testModel() {
+        $model = new User();
+        $ret = $model->modelInsert();
+        if($ret) {
+            return '调用模型添加数据成功';
+        }
+        return '调用模型添加数据失败';
+    }
+
+    public function testModelSelect() {
+        $model = new User();
+        return $model->modelSelect();
+    }
 }

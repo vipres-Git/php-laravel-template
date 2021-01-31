@@ -24,6 +24,8 @@ Route::prefix('database')->group(function () {
     Route::delete('delete', [\App\Http\Controllers\DatabaseOperationController::class,'doDelete']);
     Route::put('update', [\App\Http\Controllers\DatabaseOperationController::class,'doUpdate']);
     Route::get('select', [\App\Http\Controllers\DatabaseOperationController::class,'doSelect']);
+    Route::post('testModel',[\App\Http\Controllers\DatabaseOperationController::class,'testModel']);
+    Route::get('testModelSelect',[\App\Http\Controllers\DatabaseOperationController::class,'testModelSelect']);
 });
 
 // 接受用户请求参数
